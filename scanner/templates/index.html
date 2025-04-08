@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gautam Solar Private Limited</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputField = document.getElementById("panel_number");
+
+            // Focus input field on page load
+            if (inputField) {
+                inputField.focus();
+
+                // Auto-submit when barcode is scanned
+                inputField.addEventListener("input", function () {
+                    if (inputField.value.trim().length > 0) {
+                        document.getElementById("scanForm").submit();
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Gautam Solar Private Limited</h1>
+
+    <form id="scanForm" method="POST">
+        <label for="panel_number">Enter Panel Number:</label>
+        <input
+            type="text"
+            id="panel_number"
+            name="panel_number"
+            required
+        >
+    </form>
+
+    {% if image_url %}
+        <p style="color: green; font-weight: bold;">Image found for Panel Number</p>
+        <img src="{{ image_url }}" alt="Panel Image">
+    {% else %}
+        <p style="color: red; font-weight: bold;">No image found for the given panel number.</p>
+    {% endif %}
+</body>
+</html>
